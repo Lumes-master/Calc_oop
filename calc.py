@@ -43,26 +43,27 @@ class Calc:
             print(self.div(float(arg1)))
 
 
+def calc_main():
+    calc1 = Calc()
+
+    def inner():
+        nonlocal calc1
+        arg = input('input  ')
+        if arg == 'reset':
+            del calc1
+            print('emd')
+            return 'end'
+        elif arg not in calc1.SIGN_TUPLE and calc1.answer is None:
+            calc1.answer = float(arg)
+            print(arg)
+        elif arg in calc1.SIGN_TUPLE:
+            calc1.set_oper(arg)
+        else:
+            calc1.calc(arg)
+        inner()
+
+    return inner()
+
+
 if __name__ == '__main__':
-    def calc_main():
-        calc1 = Calc()
-        def inner():
-            nonlocal calc1
-            arg = input('input  ')
-            if arg == 'reset':
-                del calc1
-                print('emd')
-                return 'emd'
-            elif arg not in calc1.SIGN_TUPLE and calc1.answer is None:
-                calc1.answer = float(arg)
-                print(arg)
-            elif arg in calc1.SIGN_TUPLE:
-                calc1.set_oper(arg)
-            else:
-                calc1.calc(arg)
-            inner()
-
-        return inner()
-
-
     calc_main()
