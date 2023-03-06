@@ -1,6 +1,6 @@
 """ Calculator using classes. 4 simple operations.
 Keeping current answer so multiple operations are possible"""
-
+from string import ascii_letters
 
 class Calc:
     SIGN_TUPLE = ('+', '-', '/', '*')
@@ -53,13 +53,20 @@ def calc_main():
             del calc1
             print('emd')
             return 'end'
-        elif arg not in calc1.SIGN_TUPLE and calc1.answer is None:
-            calc1.answer = float(arg)
-            print(arg)
+
         elif arg in calc1.SIGN_TUPLE:
             calc1.set_oper(arg)
+        elif arg not in calc1.SIGN_TUPLE and calc1.answer is None:
+            try:
+                calc1.answer = float(arg)
+                print(arg)
+            except ValueError:
+                print('input should be numeric')
         else:
-            calc1.calc(arg)
+            try:
+                calc1.calc(arg)
+            except ValueError:
+                print('input should be numeric')
         inner()
 
     return inner()
